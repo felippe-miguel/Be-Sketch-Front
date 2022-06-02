@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  front:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    volumes: 
+      - ./app:/app
+    container_name: front
+    ports:
+      - "3000:3000"
+    working_dir: /app
