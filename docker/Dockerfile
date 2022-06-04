@@ -4,8 +4,8 @@ WORKDIR /app
 
 COPY app/package.json /app/package.json
 
-RUN npm install
+RUN yarn install
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["yarn", "dev", "--host"]
