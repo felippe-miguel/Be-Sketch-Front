@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiLogin } from "./api";
 
 const AuthContext = createContext(null)
 
@@ -18,23 +19,30 @@ export const AuthProvider = ({ children }) => {
     setLoading(false)
   }, [])
 
-  const login = (email, password) => {
-    // api
+  const login = async (email, password) => {
+    const response = await apiLogin(email, password)
+
+    if (!response.success) {
+      alert("Login inválido")
+      return
+    }
 
     const loggedUser = {
-      id: '123',
+      id: response.data.id,
       email
     }
 
     localStorage.setItem('user', JSON.stringify(loggedUser))
+    localStorage.setItem('access_token', response.data.access_token)
 
-    setUser({ id: 123, email})
+    setUser(loggedUser)
     navigate('/profile')
   }
 
   const logout = () => {
     setUser(null)
     localStorage.removeItem('user')
+    localStorage.removeItem('access_token')
     navigate('/login')
   }
 
