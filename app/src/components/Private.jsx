@@ -2,12 +2,15 @@ import { Navigate } from "react-router-dom"
 import { useAuth } from "../services/auth"
 
 export const Private = ({ children }) => {
-  const { authenticated } = useAuth()
+  const { authenticated, loading } = useAuth()
 
-  console.log(authenticated)
+  if (loading) {
+    return <h1>Carregando...</h1>
+  }
+
   if (!authenticated) {
     return <Navigate to='/login' />
   }
-  console.log('chegou')
+
   return children
 }

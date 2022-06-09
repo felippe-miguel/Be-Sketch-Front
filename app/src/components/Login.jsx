@@ -9,7 +9,9 @@ export const Login = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (auth.authenticated) {
+    const recoveredUser = localStorage.getItem('user')
+
+    if (recoveredUser) {
       navigate('/profile')
     }
   }, [])
