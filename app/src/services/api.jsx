@@ -17,3 +17,22 @@ export const apiLogin = async (email, password) => {
       message: error.response.data.message
     }))
 }
+
+export const apiProfile = async () => {
+  const token = localStorage.getItem('access_token')
+  const config = {
+    headers: { Authorization: `Bearer ${token}` }
+  }
+
+  return api.post('/login', null, config)
+    .then(response => {
+      return {
+        success: true,
+        data: response.data
+      }
+    })
+    .catch(error => ({
+      success: false,
+      message: error.response.data.message
+    }))
+}
