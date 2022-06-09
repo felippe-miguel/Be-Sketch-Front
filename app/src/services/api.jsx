@@ -24,7 +24,7 @@ export const apiProfile = async () => {
     headers: { Authorization: `Bearer ${token}` }
   }
 
-  return api.post('/login', null, config)
+  return api.get('/profile', config)
     .then(response => {
       return {
         success: true,
