@@ -3,11 +3,11 @@ import { useAuth } from "../services/auth"
 
 export const Profile = () => {
   const auth = useAuth()
-  const navigate = useNavigate
+  const navigate = useNavigate()
 
   const handleLogout = () => {
     auth.logout()
-    navigate("login")
+    navigate('/login')
   }
 
   return (

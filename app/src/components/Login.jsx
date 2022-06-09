@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../services/auth"
 
@@ -8,24 +8,29 @@ export const Login = () => {
   const auth = useAuth()
   const navigate = useNavigate()
 
-  const handleSubimit = (e) => {
+  useEffect(() => {
+    if (auth.authenticated) {
+      navigate('/profile')
+    }
+  }, [])
+
+  const handleSubmit = (e) => {
     e.preventDefault()
 
-    auth.login(user)
-    navigate("profile")
+    auth.login(email, password)
   }
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <label>
         email:
-        <input type='email' onChange={(e) => setEmail(e.target.value)} />
+        <input type='email' name='email' onChange={(e) => setEmail(e.target.value)} />
       </label>
       <label>
         password:
-        <input type='password' onChange={(e) => setPassword(e.target.value)} />
+        <input type='password' name='password' onChange={(e) => setPassword(e.target.value)} />
       </label>
-      <button type="submit" onSubmit={handleSubimit}> login </button>
+      <button type="submit"> login </button>
     </form>
   )
 }
